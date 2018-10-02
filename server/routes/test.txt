@@ -1,0 +1,60 @@
+Вы можете создать модуль mongoUtil.js, который имеет функции как для подключения к mongo, 
+так и для возврата экземпляра mongo db:
+
+var MongoClient = require( 'mongodb' ).MongoClient;
+
+var _db;
+
+module.exports = {
+
+  connectToServer: function( callback ) {
+    MongoClient.connect( "mongodb://localhost:27017/marankings", function( err, db ) {
+      _db = db;
+      return callback( err );
+    } );
+  },
+
+  getDb: function() {
+    return _db;
+  }
+};
+Чтобы использовать его, вы сделаете это в своем app.js:
+
+var mongoUtil = require( 'mongoUtil' );
+
+mongoUtil.connectToServer( function( err ) {
+  // start the rest of your app here
+} );
+И тогда, когда вам нужен доступ к mongo где-нибудь, вы можете сделать это:
+
+var mongoUtil = require( 'mongoUtil' );
+var db = mongoUtil.getDb();
+
+db.collection( 'users' ).find();
+Причина, по которой это работает, заключается в том, что в node, когда модули require 'd, они только загружаются/получаются один раз, поэтому вы всегда будете иметь только один экземпляр _db и mongoUtil.getDb() всегда верните тот же самый экземпляр.
+
+Примечание, код не проверен.
+
+
+настройки браузера, такие как "Защита от отслеживания".
+Как говорят документы,
+
+Начните принимать соединения по указанному порту и имени хоста. Если имя хоста опущено, сервер будет принимать соединения на любом IPv6-адресе (::) при наличии IPv6 или любом IPv4-адресе (0.0.0.0) в противном случае. Значение порта, равное нулю, назначит случайный порт.
+
+Итак, следующий код напечатает running at http://:::3456:
+
+var express      = require('express');
+var app          = express();
+var server = app.listen(3456, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('running at http://' + host + ':' + port)
+});
+Но если вы добавите явное имя хоста:
+
+var server = app.listen(3456, "127.0.0.1", function () {
+Он напечатает то, что вы хотите увидеть: running at http://127.0.0.1:3456
+
+Также вы можете ant использовать некоторую IP-библиотеку, как указано в этом ответе
+
+С наилучшими пожеланиями, Александр

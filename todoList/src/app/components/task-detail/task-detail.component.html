@@ -1,0 +1,18 @@
+<div class="align-items-center p-3 my-3">
+    <h1>Ваш список задач</h1>
+    <h2>{{message}}</h2>
+    <div class="row">
+        <div class="card col-lg-12 pl-0 pr-0 mb-5">
+            <div class="card-body">
+                <h5 class="card-title">{{task.title}}</h5>
+                <p class="card-text">{{task.text}}</p>
+
+                <a class="btn btn-primary" href="/tasks">Назад</a>
+                <button class="btn btn-primary" (click)="deleteTask()">Удалить</button>
+                <a [routerLink]="['/tasks/edit/', task._id]" class="btn btn-primary">Редактировать</a>
+            </div>
+        </div>
+    </div>
+    
+    <a class="btn btn-info my-2 my-sm-0" href="/tasks/create">Создать дело</a>
+</div>

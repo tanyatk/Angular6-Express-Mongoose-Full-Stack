@@ -1,0 +1,15 @@
+<div class="align-items-center p-3 my-3">
+    <h1>Ваш список задач</h1>
+    <div class="row" *ngFor="let task of tasks; let rowIndex=index">
+        <div class="card col-lg-12 pl-0 pr-0 mb-5">
+            <div class="card-header bg-white">#{{rowIndex + 1}} Анонс</div>
+            <div class="card-body">
+                <h5 class="card-title">{{task.title}}</h5>
+                <p class="card-text">{{task.text}}</p>
+                <a [routerLink]="['/tasks/detail/', task._id]" class="btn btn-primary">Подробности</a>
+            </div>
+        </div>
+    </div>
+    
+    <a class="btn btn-info my-2 my-sm-0" href="/tasks/create">Создать дело</a>
+</div>

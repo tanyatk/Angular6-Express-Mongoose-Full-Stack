@@ -1,0 +1,20 @@
+<div class="align-items-center p-3 my-3">
+    <h1>Представься</h1>
+    <form [formGroup]="userDataControl">
+        <div class="form-group">
+            <label for="login">Логин:</label>
+            <input type="text" class="form-control" id="login" placeholder="Логин" formControlName="login">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" formControlName="email" id="email" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" formControlName="password" id="password" class="form-control" placeholder="Пароль">
+        </div>
+        <button class="btn btn-info">Вперед!</button>
+    </form>
+    
+</div>
+<!--button (click)="socialSignIn('google')">Sign in with Google</button-->
